@@ -194,3 +194,5 @@ Route::get('/forcedelete', function(){
 
     Post::onlyTrashed()->find(7)->forceDelete();
 });
+
+//Esto es un cambio realizado en la rama1
