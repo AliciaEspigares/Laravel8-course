@@ -11,9 +11,11 @@ class Post extends Model
     use SoftDeletes;
     use HasFactory;
     
-    protected $dates = ['deleted_at'];
-
-
-    protected $fillable = ['title','content'];
+    protected $dates = ['deleted_at']; 
+    protected $fillable = ['title','content','user_id', 'id'];
     
+
+
+
+
 }

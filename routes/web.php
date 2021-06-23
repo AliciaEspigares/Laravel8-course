@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controlador;
 use App\Models\Post;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,14 @@ Route::get('/contact', [controlador::class, 'contact']);
 
  Route::get('/insert', function(){ //insertar información en una tabla dentro de una base de datos
 
-     DB::insert('insert into posts(title, content) values( ?, ?)', ['PHP with laravel', 'Laravel is the best thing ever ever']);
+     DB::insert('insert into users(id, name, email, password) values( ?, ?, ?, ?)', ['1', 'Ali', 'ali@email.com', '123']);
+     DB::insert('insert into users(id, name, email, password) values( ?, ?, ?, ?)', ['2', 'Maria', 'maria@email.com', '123']);
+     DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 1', 'Laravel is the best thing ever ever', '1']);
+     DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 2', 'Laravel is the best thing ever ever', '2']);
+     DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 3', 'Laravel is the best thing ever ever', '1']);
+     DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 4', 'Laravel is the best thing ever ever', '1']);
+     DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 5', 'Laravel is the best thing ever ever', '1']);
+     DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 6', 'Laravel is the best thing ever ever', '2']);
      
 
 
@@ -140,9 +148,17 @@ Route::get('/updateORM', function(){
 
 Route::get('/create', function(){
 
-    Post::create(['title'=>'the create method', 'content'=>'this is the content']);
+    Post::create(['user_id'=>'1','title'=>'Post 1', 'content'=>'this is the content', 'id'=>'1']);
+    Post::create(['user_id'=>'2','title'=>'Post 2', 'content'=>'this is the content', 'id'=>'2']);
+    Post::create(['user_id'=>'1','title'=>'Post 3', 'content'=>'this is the content', 'id'=>'3']);
+    Post::create(['user_id'=>'1','title'=>'Post 4', 'content'=>'this is the content', 'id'=>'4']);
+    Post::create(['user_id'=>'2','title'=>'Post 5', 'content'=>'this is the content', 'id'=>'5']);
+    Post::create(['user_id'=>'1','title'=>'Post 6', 'content'=>'this is the content', 'id'=>'6']);
+    User::create(['id'=> '1', 'name'=>'ali', 'email'=>'ali@email.com', 'password'=> '123']);
+    User::create(['id'=> '2', 'name'=>'maria', 'email'=>'maria@email.com', 'password'=> '123']);
 
 });
+
 
 
 Route::get('/updateORM2', function(){
@@ -153,10 +169,11 @@ Route::get('/updateORM2', function(){
 });
 
 Route::get('/delete', function(){
-    $post = Post::find(3);
-    $post->delete();
+    // $post = Post::find(3);
+    // $post->delete();
 
-    //Post::where('is_admin', 1)->delete();
+    // Post::where('is_admin', 0)->delete();
+    User::where('id', 1)->delete();
 
 });
 
@@ -192,7 +209,26 @@ Route::get('/restore', function(){
 
 Route::get('/forcedelete', function(){
 
-    Post::onlyTrashed()->find(7)->forceDelete();
+    //Post::onlyTrashed()->find(7)->forceDelete();
+    Post::onlyTrashed()->where('is_admin',0)->forceDelete();
 });
 
 //Esto es un cambio realizado en la rama1
+
+
+ /*
+ |--------------------------------------------------------------------------
+ | Eloquent Relationships
+ |--------------------------------------------------------------------------
+ |
+ */
+
+Route::get('/user/{id}/post', function($id){
+
+
+    $var= User::find(2)->post->content;
+    $pests = Post::find(1);
+    $pests->content = $var;
+    $pests->save();
+    
+});

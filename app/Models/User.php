@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'id',
     ];
 
     /**
@@ -40,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function post(){
+        // return $this->hasOne('App\Models\Post'); //Default
+        return $this->hasOne(Post::class);
+        // return $this->hasOne('App\Models\Post', 'the_user_id', 'post_id'); //if our ids are not default
+    }
+
 }
