@@ -116,6 +116,7 @@ Route::get('/findmore', function(){
 
     //$posts = Post::findOrFail(8);
     $posts = Post::find(8);
+    return User::find(1);
     //$posts = Post::where('id','>', 3)->first();
     //$posts = Post::where('id','>', 50)->firstOrFail();
     //$posts = Post::firstWhere('id','>',3);
@@ -148,14 +149,14 @@ Route::get('/updateORM', function(){
 
 Route::get('/create', function(){
 
-    Post::create(['user_id'=>'1','title'=>'Post 1', 'content'=>'this is the content', 'id'=>'1']);
-    Post::create(['user_id'=>'2','title'=>'Post 2', 'content'=>'this is the content', 'id'=>'2']);
-    Post::create(['user_id'=>'1','title'=>'Post 3', 'content'=>'this is the content', 'id'=>'3']);
-    Post::create(['user_id'=>'1','title'=>'Post 4', 'content'=>'this is the content', 'id'=>'4']);
-    Post::create(['user_id'=>'2','title'=>'Post 5', 'content'=>'this is the content', 'id'=>'5']);
-    Post::create(['user_id'=>'1','title'=>'Post 6', 'content'=>'this is the content', 'id'=>'6']);
-    User::create(['id'=> '1', 'name'=>'ali', 'email'=>'ali@email.com', 'password'=> '123']);
-    User::create(['id'=> '2', 'name'=>'maria', 'email'=>'maria@email.com', 'password'=> '123']);
+    Post::create(['user_id'=>'1','title'=>'new post', 'content'=>'this is the content']);
+    // Post::create(['user_id'=>'2','title'=>'Post 2', 'content'=>'this is the content', 'id'=>'2']);
+    // Post::create(['user_id'=>'1','title'=>'Post 3', 'content'=>'this is the content', 'id'=>'3']);
+    // Post::create(['user_id'=>'1','title'=>'Post 4', 'content'=>'this is the content', 'id'=>'4']);
+    // Post::create(['user_id'=>'2','title'=>'Post 5', 'content'=>'this is the content', 'id'=>'5']);
+    // Post::create(['user_id'=>'1','title'=>'Post 6', 'content'=>'this is the content', 'id'=>'6']);
+    // User::create(['id'=> '1', 'name'=>'ali', 'email'=>'ali@email.com', 'password'=> '123']);
+    // User::create(['id'=> '2', 'name'=>'maria', 'email'=>'maria@email.com', 'password'=> '123']);
 
 });
 
@@ -223,12 +224,29 @@ Route::get('/forcedelete', function(){
  |
  */
 
+ // One to one relationship
 Route::get('/user/{id}/post', function($id){
 
 
-    $var= User::find(2)->post->content;
-    $pests = Post::find(1);
-    $pests->content = $var;
-    $pests->save();
-    
+    return User::find($id)->post->title;
+
+});
+
+//Inverse relation one to one
+
+Route::get('/post/{id}/user', function($id){
+
+    return Post::find($id)->user->name;
+});
+
+// One to many relationship
+Route::get('/posts', function(){
+
+        $user = User::find(1);
+
+        foreach($user->posts as $post){
+            echo $post->title. "<br>";
+
+        }
+
 });
