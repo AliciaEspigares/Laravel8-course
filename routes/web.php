@@ -86,7 +86,7 @@ Route::get('/contact', [controlador::class, 'contact']);
 Route::get('/read', function(){
 
  
-    return Post::all();  //add 'use App\Models\Post;' to use it 
+    return Post::get();  //add 'use App\Models\Post;' to use it 
 
         // foreach($posts as $post){
         //     return var_dump($post);
@@ -96,7 +96,7 @@ Route::get('/read', function(){
 
 Route::get('/find', function(){
 
-    $posts = Post::find(6);
+    $posts = Post::find(2);
 
     foreach($posts as $post){
         return $posts;
