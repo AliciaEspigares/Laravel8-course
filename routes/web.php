@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controlador;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,7 +194,6 @@ Route::get('/readsoftdelete', function(){
 
         $post = Post::withTrashed()->where('id',6)->get();
         return $post;
-
         //return Post::onlyTrashed()->get();
 
 });
@@ -212,6 +212,7 @@ Route::get('/forcedelete', function(){
 
     //Post::onlyTrashed()->find(7)->forceDelete();
     Post::onlyTrashed()->where('is_admin',0)->forceDelete();
+
 });
 
 //Esto es un cambio realizado en la rama1
@@ -227,7 +228,6 @@ Route::get('/forcedelete', function(){
  // One to one relationship
 Route::get('/user/{id}/post', function($id){
 
-
     return User::find($id)->post->title;
 
 });
@@ -237,6 +237,7 @@ Route::get('/user/{id}/post', function($id){
 Route::get('/post/{id}/user', function($id){
 
     return Post::find($id)->user->name;
+
 });
 
 // One to many relationship
@@ -246,7 +247,37 @@ Route::get('/posts', function(){
 
         foreach($user->posts as $post){
             echo $post->title. "<br>";
-
         }
+});
+
+//Many to many relations
+Route::get('/user/{id}/role', function($id){
+    // $user=User::find($id);
+
+    // foreach($user->roles as $role){
+    //     return $role->name;
+    // }
+
+
+    $user = User::find($id)->roles()->get();
+    return $user;
+});
+
+//Inverse many to many
+Route::get('/role/{id}/user', function($id){
+    $role=Role::find($id)->users()->get();
+    return $role;
+
+});
+
+//Access to pivot table
+Route::get('/user/{id}/role', function($id){
+    $user=User::find($id);
+
+    foreach($user->roles as $role){
+        echo $role->pivot;
+    }
+
+
 
 });

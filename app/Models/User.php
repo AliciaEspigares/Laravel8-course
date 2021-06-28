@@ -54,5 +54,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function roles(){
+        return $this->belongsToMany(Role::class)->withTimestamps(); //Con nombres predeterminados
+
+        // return $this->belongsToMany(Role::class, 'name_pivot_table', 'user_id','role_id'); //Si algún nombre no es el estandar.
+    }
+
 
 }
