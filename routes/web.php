@@ -324,7 +324,7 @@ Route::get('/{padre}/{id}/photos', function($padre,$id){
         $padre = User::find($id);
     }else {
         echo "No se ha especificado correctamente el padre. Opciones válidas: post y user";
-        return view('error');
+        return view('error'); 
 
     }
 
