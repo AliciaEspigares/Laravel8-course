@@ -5,6 +5,7 @@ use App\Http\Controllers\controlador;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Country;
 
 /*
 |--------------------------------------------------------------------------
@@ -276,6 +277,17 @@ Route::get('/user/{id}/role', function($id){
 
     foreach($user->roles as $role){
         echo $role->pivot;
+    }
+
+});
+
+Route::get('/user/country', function(){
+
+    $country = Country::find(3);
+
+    foreach($country->posts as $post){
+
+        echo $post->title ."<br>";
     }
 
 
