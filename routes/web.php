@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Country;
+use App\Models\Photo;
 
 /*
 |--------------------------------------------------------------------------
@@ -290,6 +291,47 @@ Route::get('/user/country', function(){
         echo $post->title ."<br>";
     }
 
+});
 
+
+//Polymorphic relationship
+
+Route::get('/user/photos', function(){
+
+    $user = User::find(1);
+
+    foreach($user->photos as $photo){
+        echo $photo->path ."<br>";
+    }
 
 });
+
+Route::get('/post/photos', function(){
+
+    $post = Post::find(1);
+
+    foreach($post->photos as $photo){
+        echo $photo->path."<br>";
+    }
+
+});
+
+Route::get('/{padre}/{id}/photos', function($padre,$id){
+
+    if ($padre == "post"){
+        $padre = Post::find($id);
+    }elseif ($padre == "user"){
+        $padre = User::find($id);
+    }else {
+        echo "No se ha especificado correctamente el padre. Opciones válidas: post y user";
+        return view('error');
+
+    }
+
+    foreach($padre->photos as $photo){
+        echo $photo->path."<br>";
+    }
+
+});
+
+
