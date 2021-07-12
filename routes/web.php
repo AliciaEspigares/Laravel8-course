@@ -311,7 +311,7 @@ Route::get('/post/photos', function(){
     $post = Post::find(1);
 
     foreach($post->photos as $photo){
-        echo $photo->path."<br>"; 
+        echo $photo->path."<br>";  
     }
 
 });
