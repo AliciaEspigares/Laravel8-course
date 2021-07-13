@@ -334,4 +334,13 @@ Route::get('/{padre}/{id}/photos', function($padre,$id){
 
 });
 
+//Polymorphic inverse 
+
+Route::get('/photo/{id}/post', function($id){
+
+    $photo = Photo::findOrFail($id);
+    return $photo->photoable;
+
+});
+
 
