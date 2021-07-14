@@ -356,4 +356,35 @@ Route::get('/post/tag', function(){
     }
 
 });
+Route::get('/video/tag', function(){
 
+    $video = Video::find(1);
+
+    foreach ($video->tags as $tag){
+        echo $tag->name. "<br>";
+    }
+
+});
+
+
+//Inverse many to many polymorphic
+
+Route::get('/tag/post', function(){
+
+    $tag = Tag::find(1);
+
+    foreach($tag->posts as $post){
+        echo $post;
+
+    }
+});
+
+Route::get('/tag/video', function(){
+
+    $tag = Tag::find(1);
+
+    foreach($tag->videos as $video){
+        echo $video->name. "<br>";
+
+    }
+});
