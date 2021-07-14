@@ -10,10 +10,10 @@ class Post extends Model
 {
     use SoftDeletes;
     use HasFactory;
-    
-    protected $dates = ['deleted_at']; 
+
+    protected $dates = ['deleted_at'];
     protected $fillable = ['title','content','user_id', 'id'];
-    
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -22,6 +22,10 @@ class Post extends Model
     public function photos(){
         return $this->morphMany(Photo::class,'photoable');
 
+    }
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
 }

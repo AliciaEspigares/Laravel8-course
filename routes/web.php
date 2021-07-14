@@ -7,7 +7,8 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Country;
 use App\Models\Photo;
-
+use App\Models\Video;
+use App\Models\Tag;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +46,7 @@ Route::get('/contact', [controlador::class, 'contact']);
      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 4', 'Laravel is the best thing ever ever', '1']);
      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 5', 'Laravel is the best thing ever ever', '1']);
      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 6', 'Laravel is the best thing ever ever', '2']);
-     
+
 
 
  });
@@ -88,8 +89,8 @@ Route::get('/contact', [controlador::class, 'contact']);
 
 Route::get('/read', function(){
 
- 
-    return Post::get();  //add 'use App\Models\Post;' to use it 
+
+    return Post::get();  //add 'use App\Models\Post;' to use it
 
         // foreach($posts as $post){
         //     return var_dump($post);
@@ -137,17 +138,17 @@ Route::get('/basicinsert',function(){
     $posts->save();
 
     //$posts = new Post::find;
-                             
+
 
 
 });
 
 Route::get('/updateORM', function(){
-    
+
     $posts = Post::find(1);
     $posts->content = "New content";
     $posts->save();
-    
+
 });
 
 Route::get('/create', function(){
@@ -169,7 +170,7 @@ Route::get('/updateORM2', function(){
 
     Post::where('id', 2)-> where('is_admin',0)->update(['title'=>'NEW PHP TITLE', 'content'=>'This is id=2 and is_admin=0']);
     //Post::find(1)->update(['title'=>'NEW PHP TITLE']);
-    
+
 });
 
 Route::get('/delete', function(){
@@ -311,10 +312,12 @@ Route::get('/post/photos', function(){
     $post = Post::find(1);
 
     foreach($post->photos as $photo){
-        echo $photo->path."<br>";   
+        echo $photo->path."<br>";
     }
 
 });
+
+//Jugando con las relaciones polimorficas y las vistas
 
 Route::get('/{padre}/{id}/photos', function($padre,$id){
 
@@ -324,7 +327,7 @@ Route::get('/{padre}/{id}/photos', function($padre,$id){
         $padre = User::find($id);
     }else {
         echo "No se ha especificado correctamente el padre. Opciones válidas: post y user";
-        return view('error'); 
+        return view('error');
 
     }
 
@@ -334,7 +337,7 @@ Route::get('/{padre}/{id}/photos', function($padre,$id){
 
 });
 
-//Polymorphic inverse 
+//Polymorphic inverse
 
 Route::get('/photo/{id}/post', function($id){
 
@@ -343,4 +346,14 @@ Route::get('/photo/{id}/post', function($id){
 
 });
 
+//Many to many polymorphic
+Route::get('/post/tag', function(){
+
+    $post = Post::find(1);
+
+    foreach ($post->tags as $tag){
+        return $tag->name;
+    }
+
+});
 
