@@ -108,10 +108,10 @@ class PostsController extends Controller
         //AÑADIR ARCHIVOS A LA BASE DE DATOS
             $input = $request->all();
 
-            if($file = $request->file('nameFile')){
+            if($file = $request->file('fileToUpload')){
                 $name = $file->getClientOriginalName();
-                $file->move('FolderName', $name);
-                $input['ColumnName'] = $name;
+                $file->move('images', $name);
+                $input['path'] = $name;
             }
 
             Post::create($input);

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -45,13 +45,11 @@ class User extends Authenticatable
 
 
     public function post(){
-        // return $this->hasOne('App\Models\Post'); //Default
-        return $this->hasOne(Post::class);
-        // return $this->hasOne('App\Models\Post', 'the_user_id', 'post_id'); //if our ids are not default
+        return $this->hasOne(Post::class); //Default
+        //return $this->hasOne('App\Models\Post');  //Another way to do it
+        //return $this->hasOne(Post::class, 'the_user_id', 'post_id'); //if our ids are not by default
     }
 
-<<<<<<< Updated upstream
-=======
     public function posts(){
         return $this->hasMany(Post::class);
     }
@@ -77,5 +75,4 @@ class User extends Authenticatable
     }
 
 
->>>>>>> Stashed changes
 }
