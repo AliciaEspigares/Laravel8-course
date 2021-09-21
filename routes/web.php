@@ -4,7 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controlador;
 use App\Models\Post;
 use App\Models\User;
+<<<<<<< Updated upstream
 
+=======
+use App\Models\Role;
+use App\Models\Country;
+use App\Models\Photo;
+use App\Models\Video;
+use App\Models\Tag;
+use Carbon\Carbon; //display dates
+>>>>>>> Stashed changes
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +41,18 @@ Route::get('/contact', [controlador::class, 'contact']);
 |
 */
 
+<<<<<<< Updated upstream
  Route::get('/insert', function(){ //insertar información en una tabla dentro de una base de datos
+=======
+//      DB::insert('insert into users(name, email, password, country_id) values(?, ?, ?, ?)', ['paula', 'paula@email.com', '123', '1']);
+//      DB::insert('insert into users(id, name, email, password) values( ?, ?, ?, ?)', ['2', 'Maria', 'maria@email.com', '123']);
+//      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 1', 'Laravel is the best thing ever ever', '1']);
+//      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 2', 'Laravel is the best thing ever ever', '2']);
+//      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 3', 'Laravel is the best thing ever ever', '1']);
+//      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 4', 'Laravel is the best thing ever ever', '1']);
+//      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 5', 'Laravel is the best thing ever ever', '1']);
+//      DB::insert('insert into posts(title, content, user_id) values( ?, ?, ?)', ['Post 6', 'Laravel is the best thing ever ever', '2']);
+>>>>>>> Stashed changes
 
      DB::insert('insert into users(id, name, email, password) values( ?, ?, ?, ?)', ['1', 'Ali', 'ali@email.com', '123']);
      DB::insert('insert into users(id, name, email, password) values( ?, ?, ?, ?)', ['2', 'Maria', 'maria@email.com', '123']);
@@ -59,7 +79,61 @@ Route::get('/contact', [controlador::class, 'contact']);
 // });
 
 
+<<<<<<< Updated upstream
  Route::get('/update', function(){
+=======
+//  Route::get('/update', function(){
+
+//      $updated = DB::update('update posts set is_admin = 1 where id = ?', [3]);
+
+//      return $updated;
+
+//  });
+
+// // Route::get('/delete', function(){
+
+// //     DB::delete('delete from posts where id = ?', [1]);
+
+// // });
+
+
+
+//  /*
+//  |--------------------------------------------------------------------------
+//  | Eloquent (OBR)
+//  |--------------------------------------------------------------------------
+//  |
+//  */
+
+
+// Route::get('/read', function(){
+
+
+//     return Post::get();  //add 'use App\Models\Post;' to use it
+
+//         // foreach($posts as $post){
+//         //     return var_dump($post);
+//         // }
+
+// });
+
+// Route::get('/find', function(){
+
+//     $posts = Post::find(2);
+
+//     foreach($posts as $post){
+//         return $posts;
+//     }
+
+
+// });
+
+// Route::get('/findwhere', function(){
+    //  $posts = Post::where('is_admin',1)->orderBy('id', 'desc')->take(2)->get();
+
+//      return $posts;
+// });
+>>>>>>> Stashed changes
 
      $updated = DB::update('update posts set is_admin = 1 where id = ?', [3]);
 
@@ -223,6 +297,7 @@ Route::get('/forcedelete', function(){
  |
  */
 
+<<<<<<< Updated upstream
 Route::get('/user/{id}/post', function($id){
 
 
@@ -232,3 +307,38 @@ Route::get('/user/{id}/post', function($id){
     $pests->save();
     
 });
+=======
+// Route::get('/posts/create', [PostsController::class, 'create']);
+// Route::post('/posts', [PostsController::class, 'store']);
+
+
+// Route::group(['middleware'=>'web'], function(){
+
+    Route::resource('/posts', PostsController::class);
+
+// });
+
+Route::get('dates', function () {
+    $date = new DateTime('+1 week');
+    echo $date->format('d-m-Y').'<br>';
+
+    echo Carbon::now()->diffForHumans().'<br>';
+
+    echo Carbon::now()->addDays(10)->diffForHumans().'<br>';
+
+    echo Carbon::now()->yesterday()->diffForHumans().'<br>';
+});
+
+
+Route::get('getname', function () {
+    $user = User::find(1);
+    echo $user->name;
+
+});
+
+Route::get('setname', function () {
+    $user = User::find(1);
+    $user->name = "lola";
+    $user->save();
+});
+>>>>>>> Stashed changes

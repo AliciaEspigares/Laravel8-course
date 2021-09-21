@@ -50,4 +50,32 @@ class User extends Authenticatable
         // return $this->hasOne('App\Models\Post', 'the_user_id', 'post_id'); //if our ids are not default
     }
 
+<<<<<<< Updated upstream
+=======
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class)->withTimestamps(); //Con nombres predeterminados
+
+        // return $this->belongsToMany(Role::class, 'name_pivot_table', 'user_id','role_id'); //Si algún nombre no es el estandar.
+    }
+
+
+    public function photos(){
+        return $this->morphMany(Photo::class,'photoable');
+
+    }
+
+    public function getNameAttribute($value){
+        return ucfirst($value);
+    }
+
+    public function setNameAttribute($value){
+        $this->attributes['name'] = strtoupper($value);
+    }
+
+
+>>>>>>> Stashed changes
 }
